@@ -1,0 +1,38 @@
+@startuml
+title Factory Method: создание потребителя электроэнергии
+
+interface PowerConsumer {
+  +description() : String
+  +allocatedPowerKw() : double
+}
+
+abstract class ConsumerCreator {
+  +{abstract} createConsumer(allocatedPowerKw : double) : PowerConsumer
+}
+
+class IndustrialConsumer
+class ResidentialConsumer
+class MunicipalConsumer
+class AgriculturalConsumer
+
+class IndustrialConsumerCreator
+class ResidentialConsumerCreator
+class MunicipalConsumerCreator
+class AgriculturalConsumerCreator
+
+PowerConsumer <|.. IndustrialConsumer
+PowerConsumer <|.. ResidentialConsumer
+PowerConsumer <|.. MunicipalConsumer
+PowerConsumer <|.. AgriculturalConsumer
+
+ConsumerCreator <|-- IndustrialConsumerCreator
+ConsumerCreator <|-- ResidentialConsumerCreator
+ConsumerCreator <|-- MunicipalConsumerCreator
+ConsumerCreator <|-- AgriculturalConsumerCreator
+
+ConsumerCreator ..> PowerConsumer : создаёт
+IndustrialConsumerCreator ..> IndustrialConsumer
+ResidentialConsumerCreator ..> ResidentialConsumer
+MunicipalConsumerCreator ..> MunicipalConsumer
+AgriculturalConsumerCreator ..> AgriculturalConsumer
+@enduml
