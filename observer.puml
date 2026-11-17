@@ -1,0 +1,26 @@
+@startuml
+title Observer: оповещение об аварии на подстанции
+
+interface OutageListener {
+  +onSubstationOutage(substationName : String, faultDescription : String) : void
+}
+
+class EnergyDispatchCenter {
+  -substationName : String
+  -listeners : List<OutageListener>
+  +addListener(listener : OutageListener) : void
+  +removeListener(listener : OutageListener) : void
+  +reportOutage(faultDescription : String) : void
+}
+
+class DispatchMimicBoard
+class EmergencyJournal
+class RepairCrewAlert
+class ScadaTelemetry
+
+EnergyDispatchCenter o--> "0..*" OutageListener : оповещает
+OutageListener <|.. DispatchMimicBoard
+OutageListener <|.. EmergencyJournal
+OutageListener <|.. RepairCrewAlert
+OutageListener <|.. ScadaTelemetry
+@enduml
